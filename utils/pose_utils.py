@@ -8,7 +8,7 @@ from utils import pose_transform
 import json
 from PIL import ImageDraw
 from torchvision import utils, transforms
-from skimage.draw import circle, line_aa, polygon
+from skimage.draw import disk, line_aa, polygon
 
 np.seterr(divide='ignore', invalid='ignore')
 
@@ -109,7 +109,7 @@ def draw_pose_from_cords(pose_joints, img_size, radius=6, draw_joints=True):
     for i, joint in enumerate(pose_joints):
         if pose_joints[i][0] == MISSING_VALUE or pose_joints[i][1] == MISSING_VALUE:
             continue
-        yy, xx = circle(joint[0], joint[1], radius=radius, shape=img_size)
+        yy, xx = disk(joint[0], joint[1], radius=radius, shape=img_size)
         colors[yy, xx] = COLORS[i]
         mask[yy, xx] = True
 
